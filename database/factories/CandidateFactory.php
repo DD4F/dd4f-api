@@ -19,10 +19,8 @@ class CandidateFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'source' => $this->faker->word(),
-            # 'owner' => $this->faker->randomDigit(),
-            'owner' => 1,
-            # 'created_by' => $this->faker->randomDigit(),
-            'created_by' => 1,
+            'owner' => $this->faker->randomDigit([1]),
+            'created_by' => $this->faker->randomDigit([1]),
         ];
     }
 }
