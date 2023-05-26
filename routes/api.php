@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CandidateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 */
 
-Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
+Route::post('/auth', [AuthController::class, 'login']);
+Route::group(['middleware' => 'jwt.api'], function () {
+    # Candidates
+    Route::post('lead', [CandidateController::class, 'store']);
+    Route::get('leads', [CandidateController::class, 'index']);
+    Route::get('lead/{id}', [CandidateController::class, 'show']);
 });
 

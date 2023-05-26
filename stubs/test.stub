@@ -1,0 +1,57 @@
+<?php
+
+namespace {{ namespace }};
+
+use Tests\TestCase;
+
+class {{ class }} extends TestCase
+{
+    // 'PATH_MODEL_TABLE'
+
+    public function testCreate{{ class }}()
+    {
+        $data = $this->model::factory()->make();
+
+        $this->postJson($this->path, $data->toArray())
+            ->assertCreated();
+
+        $this->assertDatabaseHas($this->table, $data->toArray());
+    }
+
+    public function testShow{{ class }}()
+    {
+        $data = $this->model::factory()->create();
+
+        $response = $this->getJson($this->path . '/' .  $data->getRouteKey());
+        $response->assertOk();
+        $response->assertJsonFragment($data->toArray());
+    }
+
+    public function testUpdate{{ class }}()
+    {
+        $data = $this->model::factory()->create();
+        $newData = $this->model::factory()->make();
+
+        $response = $this->putJson($this->path . '/' . $data->getRouteKey(), $newData->toArray());
+        $response->assertNoContent();
+    }
+
+    public function testList{{ class }}()
+    {
+        $this->model::factory()->count(10)->create();
+
+        $response = $this->get($this->path);
+        $response->assertOk();
+        $response->assertJsonCount(10, 'data');
+    }
+
+    public function testDelete{{ class }}()
+    {
+        $data = $this->model::factory()->create();
+        $this->delete($this->path . '/' . $data->getRouteKey())
+            ->assertNoContent();
+
+        $this->assertDatabaseCount($this->table, 1);
+        $this->assertSoftDeleted($data);
+    }
+}
