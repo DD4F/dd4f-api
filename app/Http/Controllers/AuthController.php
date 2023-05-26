@@ -103,6 +103,11 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+        # actualizamos last_login
+        auth()->user()->update([
+            'last_login' => date('Y-m-d H:i:s'),
+        ]);
+
         $response = [
             'meta' => [
                 'success'   => true,

@@ -13,16 +13,6 @@ class CandidateController extends Controller
     public function __construct(){
         $this->middleware(['permission:candidates-read'])->only(['index', 'show']);
         $this->middleware(['permission:candidates-create'])->only('store');
-         
-        /*
-        $this->middleware(function ($request, $next) {
-            if (!auth()->user()->isAbleTo('candidates-create')) {
-                abort(403, 'No tienes permiso para acceder a esta ruta.');
-            }
-            return $next($request);
-        })->only('store');
-        */ 
-
     }
 
     /**
@@ -31,21 +21,27 @@ class CandidateController extends Controller
     public function index(Request $request)
     {
         try {
+            $minutes = 1;
 
-            $minutes = 5;
-            $candidate = Cache::remember('candidates', $minutes, function () {
-                return Candidate::all();
-            });
+            if(auth()->user()->hasRole('agent')){
+                $candidates = Cache::remember('agent-candidates', $minutes, function () {
+                    return Candidate::whereNull('owner')->get();
+                });
+            }else{
+                $candidates = Cache::remember('candidates', $minutes, function () {
+                    return Candidate::all();
+                });
+            }
             
             $response = [
                 'meta' => [
                     'success'   => true,
                     'errors'    => [],
                 ],
-                'data' => $candidate
+                'data' => $candidates
             ];
 
-            if(!$candidate){
+            if(!$candidates){
                 $response['data'] = ['No lead found'];
             }
         } catch (\Exception $e) {
