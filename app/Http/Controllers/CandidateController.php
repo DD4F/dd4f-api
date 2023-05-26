@@ -5,15 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Laratrust;
 
 class CandidateController extends Controller
 {
 
     public function __construct(){
-        # $this->middleware(['permission:read_candidates'])->only('index');
-        # $this->middleware(['permission:create_candidates'])->only('create');
-        # $this->middleware(['permission:update_candidates'])->only('edit');
-        # $this->middleware(['permission:delete_candidates'])->only('destroy');
+        $this->middleware(['permission:candidates-read'])->only(['index', 'show']);
+        $this->middleware(['permission:candidates-create'])->only('store');
+         
+        /*
+        $this->middleware(function ($request, $next) {
+            if (!auth()->user()->isAbleTo('candidates-create')) {
+                abort(403, 'No tienes permiso para acceder a esta ruta.');
+            }
+            return $next($request);
+        })->only('store');
+        */ 
+
     }
 
     /**
@@ -59,6 +68,10 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
+        auth()->user()->isAbleTo('candidates-create');
+
+        # dd(auth()->user()->isAbleTo('candidates-create'));
+
         try {
             # Validamos la data
             $request['created_by'] = 1;

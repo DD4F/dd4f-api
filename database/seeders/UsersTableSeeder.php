@@ -12,13 +12,22 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $dd4f = \App\Models\User::create([
+        # Manager
+        $manager = \App\Models\User::create([
             'name'      => 'dd4f',
             'username'  => 'dd4f',
             'email'     => 'dd4f@app.com',
             'password'  => bcrypt('dd4f'),
         ]);
+        $manager->addRole('manager');
 
-        # $dd4f->attachRole('superadministrator');
+        # Agent
+        $agent = \App\Models\User::create([
+            'name'      => 'badbios',
+            'username'  => 'badbios',
+            'email'     => 'badbios@app.com',
+            'password'  => bcrypt('badbios'),
+        ]);
+        $agent->addRole('agent');
     }
 }

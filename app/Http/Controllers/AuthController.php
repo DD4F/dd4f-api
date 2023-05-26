@@ -116,4 +116,17 @@ class AuthController extends Controller
         ];
         return response()->json($response,200);
     }
+
+    public function noPermission()
+    {
+        $response = [
+            'meta' => [
+                "success" => false,
+                "errors" => [
+                    'No tienes permiso para realizar esta acción.'
+                ],
+            ]
+        ];
+        return response()->json($response,401);
+    }
 }

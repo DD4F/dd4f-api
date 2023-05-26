@@ -4,13 +4,17 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+use Laratrust\Contracts\LaratrustUser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements JWTSubject
+
+class User extends Authenticatable implements JWTSubject, LaratrustUser
 {
+    use HasRolesAndPermissions;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -23,6 +27,8 @@ class User extends Authenticatable implements JWTSubject
         'username',
         'email',
         'password',
+        'is_active',
+        'last_login',
     ];
 
     /**

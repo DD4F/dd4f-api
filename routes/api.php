@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 */
 
+Route::get('no-permission', [AuthController::class, 'noPermission']);
 Route::post('/auth', [AuthController::class, 'login']);
 Route::group(['middleware' => 'jwt.api'], function () {
     # Candidates
