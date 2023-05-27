@@ -22,17 +22,7 @@ class AuthTest extends TestCase
 
     public function test_auth_login()
     {
-        $data = [
-            'username'  => 'dd4f',
-            'password'  => 'dd4f',
-        ];
-        $response = $this->withHeaders([
-                    ])->json('POST',
-                            route('api.auth.login'),
-                            $data
-                        );
-        $response->assertStatus(200);
-        $response->assertJsonStructure([
+        $structure = [
             'meta' => [
                 'success',
                 'errors',
@@ -41,7 +31,18 @@ class AuthTest extends TestCase
                 'token',
                 'minutes_to_expire',
             ],
-        ]);
+        ];
+        
+        $response = $this->withHeaders([
+                    ])->json('POST',
+                            route('api.auth.login'),
+                            [
+                                'username'  => 'dd4f',
+                                'password'  => 'dd4f',
+                            ]
+                        );
+        $response->assertStatus(200);
+        $response->assertJsonStructure($structure);
     }
 
 }

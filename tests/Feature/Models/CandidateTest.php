@@ -37,6 +37,13 @@ class CandidateTest extends TestCase
 
     public function test_create_candidate_test()
     {
+        $structure = [
+            'meta' => [
+                'success',
+                'errors',
+            ],
+            'data'
+        ];
         $token = $this->authenticate();
 
         $data = $this->model::factory()->make();
@@ -48,18 +55,20 @@ class CandidateTest extends TestCase
                             $data->toArray()
                         );
         $response->assertStatus(201);
-        $response->assertJsonStructure([
-            'meta' => [
-                'success',
-                'errors',
-            ],
-            'data'
-        ]);
+        $response->assertJsonStructure($structure);
 
     }
 
     public function test_show_candidate_test()
     {
+        $structure = [
+            'meta' => [
+                'success',
+                'errors',
+            ],
+            'data'
+        ];
+
         $token      = $this->authenticate();
         $candidate  = $this->model::factory()->create();
         $response   = $this->withHeaders([
@@ -70,17 +79,18 @@ class CandidateTest extends TestCase
                             ])
                         );
         $response->assertStatus(200);
-        $response->assertJsonStructure([
+        $response->assertJsonStructure($structure);
+    }
+
+    public function test_list_candidate_test()
+    {
+        $structure = [
             'meta' => [
                 'success',
                 'errors',
             ],
             'data'
-        ]);
-    }
-
-    public function test_list_candidate_test()
-    {
+        ];
         $token      = $this->authenticate();
         $this->model::factory()->count(10)->create();
 
@@ -90,17 +100,17 @@ class CandidateTest extends TestCase
                             route('api.leads.index')
                         );
         $response->assertOk(200);
-        $response->assertJsonStructure([
-            'meta' => [
-                'success',
-                'errors',
-            ],
-            'data'
-        ]);
+        $response->assertJsonStructure($structure);
     }
 
     public function test_unauthorized_test()
     {
+        $structure = [
+            'meta' => [
+                'success',
+                'errors',
+            ]
+        ];
         $candidate  = $this->model::factory()->create();
         $response   = $this->withHeaders([
                     ])->json('GET',
@@ -109,16 +119,17 @@ class CandidateTest extends TestCase
                             ])
                         );
         $response->assertStatus(401);
-        $response->assertJsonStructure([
-            'meta' => [
-                'success',
-                'errors',
-            ],
-        ]);
+        $response->assertJsonStructure($structure);
     }
 
     public function test_show_not_found_test()
     {
+        $structure = [
+            'meta' => [
+                'success',
+                'errors',
+            ]
+        ];
         $token      = $this->authenticate();
         $response   = $this->withHeaders([
                         'Authorization' => 'Bearer '. $token
@@ -128,12 +139,7 @@ class CandidateTest extends TestCase
                             ])
                         );
         $response->assertStatus(404);
-        $response->assertJsonStructure([
-            'meta' => [
-                'success',
-                'errors',
-            ],
-        ]);
+        $response->assertJsonStructure($structure);
     }
 
 }
