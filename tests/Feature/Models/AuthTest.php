@@ -15,26 +15,6 @@ class AuthTest extends TestCase
 {
     # use RefreshDatabase;
 
-    protected function authenticate()
-    {
-        $user = User::firstOrCreate(
-            [
-                'username'  => 'Test.User',
-            ],
-            [
-                'name'      => 'TestUser',
-                'username'  => 'Test.User',
-                'email'     => 'test@gmail.com',
-                'password'  => Hash::make('secret123$')
-            ]
-        );
-        $user->syncRoles(['manager']);
-
-        $this->user = $user;
-        $token = JWTAuth::fromUser($user);
-        return $token;
-    }
-
     /**
      * Test User Login
      *@test
