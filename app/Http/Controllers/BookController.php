@@ -64,7 +64,7 @@ class BookController extends Controller
      *     )
      *    )
      *  ),
-     *  @OA\Response(response="201",description="Book created",
+     *  @OA\Response(response="200",description="Book created",
      *     @OA\JsonContent(ref="#/components/schemas/Book"),
      *  ),
      *  @OA\Response(response=422,description="Validation exception"),

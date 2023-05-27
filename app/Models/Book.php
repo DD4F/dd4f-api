@@ -64,7 +64,7 @@ class Book extends Model
     ];
     
     protected $casts = [
-        'owner' => 'integer',,
-                'created_by' => 'integer',
+        'owner' => 'integer',
+        'created_by' => 'integer',
     ];
 }

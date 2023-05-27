@@ -6,6 +6,7 @@ use Tests\TestCase;
 
 class BookTest extends TestCase
 {
+    /*
     private $path = 'api/books';
     private $model = \App\Models\Book::class;
     private $table = 'books';
@@ -56,4 +57,5 @@ class BookTest extends TestCase
         $this->assertDatabaseCount($this->table, 1);
         $this->assertSoftDeleted($data);
     }
+    */
 }

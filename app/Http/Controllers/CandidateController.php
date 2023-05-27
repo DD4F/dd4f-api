@@ -56,7 +56,7 @@ class CandidateController extends Controller
             return response()->json($response, 422);
         }
 
-        return response()->json($response,201);
+        return response()->json($response,200);
     }
 
     /**
@@ -124,6 +124,8 @@ class CandidateController extends Controller
 
             if(!$candidate){
                 $response['data'] = ['No lead found'];
+                return response()->json($response, 404);
+
             }
         } catch (\Exception $e) {
             $response = [
@@ -137,7 +139,7 @@ class CandidateController extends Controller
             return response()->json($response, 422);
         }
 
-        return response()->json($response,201);
+        return response()->json($response,200);
     }
 
     /**
