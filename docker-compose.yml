@@ -73,6 +73,18 @@ services:
             - '/dev/shm:/dev/shm'
         networks:
             - sail
+    swagger:
+        image: swaggerapi/swagger-ui
+        ports:
+            - 8080:8080
+        volumes:
+            - ./docs/swagger:/usr/share/nginx/html/definitions
+        environment:
+            API_URL: definitions/swagger.yml
+        depends_on: 
+            - laravel.test
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge

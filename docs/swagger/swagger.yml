@@ -1,0 +1,151 @@
+openapi: '3.0.3'
+info:
+  title: DD4F - API
+  version: '6.0'
+servers:
+  - url: http://134.209.215.6/
+  - url: https://134.209.215.6/
+tags:
+  - name: API REST LARAVEL 9 - JWT - TDD
+    description: Server information endpoints
+
+paths:
+ 
+  /api/auth:
+    post:
+      tags:
+        - Generar access token
+      summary: Inicia una sesión para la utilización del servicio
+      description: Metodo para autenticación.
+      operationId: login
+      requestBody:
+        description: Objeto para iniciar sesión
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/login"
+        required: true
+      responses:
+        default:
+          description: successful operation
+          content: {}
+      x-codegen-request-body-name: body
+
+  /api/lead:
+    post:
+      tags:
+        - Crear Candidato
+      summary: Creación de un candidato
+      description: Esto solo lo puede hacer despues de haberse autenticado.
+      operationId: lead
+      requestBody:
+        description: Objeto para crear un candidato
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/candidate"
+        required: true
+      responses:
+        default:
+          description: successful operation
+          content: {}
+      security:
+        - bearerAuth: []
+      x-codegen-request-body-name: body
+  
+  /api/lead/{id}:
+    get:
+      tags:
+        - Obetener Candidato
+      summary: Obtener informacion de un candidato
+      description: Esto solo lo puede hacer despues de haberse autenticado.
+      operationId: getLead
+      parameters:
+        - name: id
+          in: path
+          description: "ID del candidato a obtener "
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/candidate"
+        400:
+          description: Invalid id supplied
+          content: {}
+        404:
+          description: Candidate not found
+          content: {}
+      security:
+        - bearerAuth: []
+      x-codegen-request-body-name: body
+  
+  /api/leads:
+    get:
+      tags:
+        - Obetener Todos los Candidatos
+      summary: Obtener informacion de todos los candidatos
+      description: Esto solo lo puede hacer despues de haberse autenticado.
+      operationId: leads
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/candidate"
+        400:
+          description: Invalid id supplied
+          content: {}
+        404:
+          description: Candidate not found
+          content: {}
+      security:
+        - bearerAuth: []
+      x-codegen-request-body-name: body
+
+components:
+  schemas:
+    login:
+      type: object
+      properties:
+        username:
+          example: dd4f
+          type: string
+          description: Usuario
+        password:
+          example: 110001
+          type: string
+          description: Contraseña
+      xml:
+        name: login
+    
+    candidate:
+      type: object
+      properties:
+        name:
+          example: Mi Candidato
+          type: string
+          description: Nombre Candidato
+        source:
+          example: Fotocasa
+          type: string
+          description: Origen Candidato
+        owner:
+          example: 1
+          type: integer
+          description: Id Usuario Responsable
+      xml:
+        name: candidate
+    
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+    
