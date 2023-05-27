@@ -10,7 +10,6 @@
 ## Para Ejecutar
 - Servidor Web: Puerto 80
 - MySQL: Puerto 3306
-- Mailhog: Puerto 8025
 - Swagger: Puerto 8080
 ##
 - docker-compose up --build -d
