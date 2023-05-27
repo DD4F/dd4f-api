@@ -21,6 +21,13 @@ Una vez dentro del contendor
 - php artisan migrate:refresh --seed
 ##
 
+## Anexos
+<p align="center"><a href="" target="_blank"><img src="http://134.209.215.6/img/swagger.png" width="400" alt="swagger"></a></p>
+<p align="center"><a href="" target="_blank"><img src="http://134.209.215.6/img/sonarqube1.png" width="400" alt="SonarQube"></a></p>
+<p align="center"><a href="" target="_blank"><img src="http://134.209.215.6/img/sonarqube2.png" width="400" alt="SonarQube"></a></p>
+<p align="center"><a href="" target="_blank"><img src="http://134.209.215.6/img/test.png" width="400" alt="Test"></a></p>
+
+###
 
 ## About Laravel
 
