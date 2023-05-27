@@ -10,10 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class CandidateTest extends TestCase
 {
-    
-    private $path = 'api/candidates';
     private $model = \App\Models\Candidate::class;
-    private $table = 'candidates';
 
     protected function authenticate()
     {

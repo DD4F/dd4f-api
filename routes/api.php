@@ -15,11 +15,6 @@ use App\Http\Controllers\CandidateController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-/*
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-*/
 
 Route::get('no-permission', [AuthController::class, 'noPermission']);
 Route::post('/auth', [AuthController::class, 'login'])->name('api.auth.login');

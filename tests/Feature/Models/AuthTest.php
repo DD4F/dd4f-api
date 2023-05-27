@@ -10,10 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-
 class AuthTest extends TestCase
 {
-    # use RefreshDatabase;
 
     /**
      * Test User Login
@@ -32,7 +30,7 @@ class AuthTest extends TestCase
                 'minutes_to_expire',
             ],
         ];
-        
+
         $response = $this->withHeaders([
                     ])->json('POST',
                             route('api.auth.login'),
