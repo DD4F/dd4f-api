@@ -21,6 +21,10 @@ Una vez dentro del contendor
 - php artisan migrate:refresh --seed
 ##
 
+###
+Insomnia => Insomnia_dd4f_api_2023-05.json
+###
+
 ## Anexos
 <p align="center"><a href="http://134.209.215.6/img/swagger.png" target="_blank"><img src="http://134.209.215.6/img/swagger.png" width="400" alt="swagger"></a></p>
 <p align="center"><a href="http://134.209.215.6/img/sonarqube1.png" target="_blank"><img src="http://134.209.215.6/img/sonarqube1.png" width="400" alt="SonarQube"></a></p>
